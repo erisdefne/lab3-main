@@ -1,6 +1,10 @@
 package org.translation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 /**
  * Main class for this program.
@@ -36,24 +40,24 @@ public class Main {
      */
     public static void runProgram(Translator translator) {
         while (true) {
+            String quit = "quit";
             String country = promptForCountry(translator);
             CountryCodeConverter convertor = new CountryCodeConverter();
-            String countrycode = convertor.fromCountry(country).toLowerCase(Locale.ROOT);
-            String quit = "quit";
             // CheckStyle: The String "quit" appears 3 times in the file.
             // Checkstyle: String literal expressions should be on the left side of an equals comparison
-            if (quit.equals(country)) {
+            if (quit.equals(country.toLowerCase())) {
                 break;
             }
+            String countrycode = convertor.fromCountry(country).toLowerCase(Locale.ROOT);
             // Task: Once you switch promptForCountry so that it returns the country
             //            name rather than the 3-letter country code, you will need to
             //            convert it back to its 3-letter country code when calling promptForLanguage
             String language = promptForLanguage(translator, countrycode);
             LanguageCodeConverter langConverter = new LanguageCodeConverter();
-            String languagecode = langConverter.fromLanguage(language).toLowerCase(Locale.ROOT);
-            if (quit.equals(language)) {
+            if (quit.equals(language.toLowerCase())) {
                 break;
             }
+            String languagecode = langConverter.fromLanguage(language).toLowerCase(Locale.ROOT);
             // Task: Once you switch promptForLanguage so that it returns the language
             //            name rather than the 2-letter language code, you will need to
             //            convert it back to its 2-letter language code when calling translate.
